@@ -1,0 +1,66 @@
+/* Floating sakura petals + gentle scroll parallax */
+
+.sakura-petals {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.sakura-petal {
+  position: absolute;
+  top: -28px;
+  border-radius: 72% 0 72% 8%;
+  background: linear-gradient(145deg, #fff7fa 0%, #f8adc4 58%, #e7799e 100%);
+  opacity: 0.5;
+  filter: drop-shadow(0 2px 4px rgba(168, 69, 104, 0.15));
+  animation: sakura-fall 17s linear infinite;
+  will-change: transform;
+}
+
+.sakura-petal:nth-child(2n) {
+  border-radius: 0 72% 8% 72%;
+  opacity: 0.37;
+}
+
+.sakura-petal:nth-child(3n) {
+  background: linear-gradient(145deg, #ffffff 0%, #f5c4d4 72%, #eeb0c5 100%);
+  opacity: 0.42;
+}
+
+@keyframes sakura-fall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(22px, 25vh, 0) rotate(100deg);
+  }
+  50% {
+    transform: translate3d(-17px, 52vh, 0) rotate(220deg);
+  }
+  75% {
+    transform: translate3d(18px, 78vh, 0) rotate(310deg);
+  }
+  100% {
+    transform: translate3d(-8px, 110vh, 0) rotate(420deg);
+  }
+}
+
+[data-parallax] {
+  transform: translate3d(0, var(--parallax-y, 0px), 0);
+  will-change: transform;
+  transition: transform 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sakura-petals {
+    display: none;
+  }
+  [data-parallax] {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
